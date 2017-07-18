@@ -1,27 +1,37 @@
 #include "settings.h"
-static struct ring{
+
+struct ring_bufer{
     char angle[SIZE];
-    int write;
-    int read;
-    int mask;
-}bufer;
-void maskini(){
-    bufer.mask = SIZE-1;
-}
-bool isfull(){
-    if (((bufer.write-bufer.read) & bufer.mask)!=0)
+    int write_count,
+        read_count;
+};
+int is_full(struct ring_bufer *this_bufer){
+    if (((this_bufer->write_count) - (this_bufer->read_count)) != 0)
+        return 0;
+    else
         return 1;
-    else 
+}
+int is_empty(struct struct ring_bufer *this_bufer){
+    if ((((*this_bufer->write_count) - (*this_bufer->read_count)) == 0)
+        return 1;
+    else
         return 0;
 }
-bool isempty(){
-    return (bufer.write==bufer.read);
+void write(char data, struct ring_bufer *this_bufer){
+    while(isfull() != 1){
+        this_bufer -> angle[(*this_bufer -> write_count)++] = data;
+        if (*this_bufer -> write_count > SIZE-1)
+            *this_bufer -> write_count = 0;
+    }
 }
-void write(char data){
-    while(!isfull())
-     bufer.angle[bufer.write++ & bufer.mask] = data;
+void* read(char* data, struct ring_bufer *this_bufer){
+    while(isempty() != 1){
+        *data++ = this_bufer -> angle[(*this_bufer -> read_count)++];
+        if (*this_bufer -> read_count > SIZE-1)
+            *this_bufer -> read_count = 0;
+    }
 }
-void* read(char* data){
-    while(!isempty())
-        *data++ = bufer.angle[bufer.read++ & bufer.mask];
+void clear_bufer(struct ring_bufer *this_bufer){
+    *this_bufer -> write_count = 0;
+    *this_bufer -> read_count = 0;
 }
