@@ -1,9 +1,3 @@
-struct ring_bufer{
-    uint16_t memory[BUFER_SIZE];
-    uint8_t write_count,
-            read_count;
-};
-
 /* is_free()
 * Function check if READ and WRITE COUNT equals to zero - bufer is FREE. 
 * Or, if WRITE (READ) COUNT dont equals to zero, but WRITE COUNT doesnt equals to 
@@ -26,9 +20,9 @@ bool is_empty(struct ring_bufer *this_bufer){
 }
 void write(char data, struct ring_bufer *this_bufer){
 	if (is_free(this_bufer)){
-	this_bufer -> memory[(this_bufer -> write_count)++] = data;
-	if (this_bufer -> write_count > SIZE-1)
-		this_bufer -> write_count = 0;
+		this_bufer -> memory[(this_bufer -> write_count)++] = data;
+		if (this_bufer -> write_count > SIZE-1)
+			this_bufer -> write_count = 0;
 	}
 }
 void read(char* data, struct ring_bufer *this_bufer){
