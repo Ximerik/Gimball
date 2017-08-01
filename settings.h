@@ -1,12 +1,12 @@
 /*FIFO bufer size. Must be power of 2*/
 #define SIZE 8
 /* COMAND CODES (MODE) */
-#define HOLD_ORIENTATION  		0x48
-#define NEW_ORIENTATION	  		0x4E
-#define GET_ANGLE		  		0x41
-#define GET_ANGULAR_SPEED 		0x61
-#define ORIENTATION_ABSOLUTE	0x21
-#define ORIENTATION_RELATIVE	0x7E
+#define HOLD_ORIENTATION  		    0x48
+#define NEW_ORIENTATION	  		    0x4E
+#define GET_ANGLE		  		    0x41
+#define GET_ANGULAR_SPEED 		    0x61
+#define ORIENTATION_ABSOLUTE	    0x21
+#define ORIENTATION_RELATIVE	    0x7E
 
 /*MPU 6050 REGISTERS*/
 #define	ax 0xff //register of accelerometer x-axis
@@ -27,3 +27,7 @@
 
 /*CONSTANTS*/
 #define ERROR_REG_SIZE 3
+
+/* WIRE NAMES */
+#define AXEL_X zero
+#define AXEL_Y one
